@@ -1,3 +1,30 @@
-<p>
-  login works!
-</p>
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+
+    <h1 class="display-4 text-center"> Login</h1>
+
+    <div class="jumbotron">
+      <form name="form" (ngSubmit)="f.form.valid "  #f="ngForm" >
+        <div class="form-group" >
+          <label>UserName</label>
+          <input type="text" class="form-control" name="username" required/>
+          <div *ngIf="f.submitted && !username.valid" class="form-control-feedback">UserName is required</div>
+        </div>
+        <div class="form-group" >
+          <label>Password</label>
+          <input type="password" class="form-control" name="password"
+                 required/>
+          <div *ngIf="f.submitted && !password.valid" class="form-control-feedback">Password is required</div>
+        </div>
+        <div class="form-group">
+          <button [disabled]="!f.form.valid" class="btn btn-primary">Login</button>
+
+          <a [routerLink]="['/register']" class="btn btn-link">Register</a>
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+
+</div>
