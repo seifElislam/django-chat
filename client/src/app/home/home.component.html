@@ -11,7 +11,7 @@
   <div   class="col-md-12">
     <ul class="list-group">
       <li class="list-group-item group " *ngFor="let user of users" [class.selected]="group === currentGroup" (click)="onSelect(user)" >
-        <span class="badge">{{user.status}}</span>
+        <span class="badge" [ngClass]="{'my-class': user.login }">{{user.status}}</span>
         {{user.username}}
       </li>
     </ul>

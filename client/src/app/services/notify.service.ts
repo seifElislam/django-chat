@@ -27,7 +27,7 @@ sendMessage(msg:any){
 
   this.socket.send(msg).subscribe(
         (msg)=> {
-            console.log("next", msg.data);
+            console.log("replay", msg.data);
         },
         (msg)=> {
             console.log("error", msg);
@@ -52,36 +52,29 @@ sendMessage(msg:any){
 
 reciveMessage(){
 
-  // return  this.socket.getDataStream().map((msg: MessageEvent )=>{let result = msg.data;console.log("result:",result)});
-//   (msg)=> {
-//     let  result = JSON.parse(msg.data)
-//
-//       console.log(result);
-//       // this.socket.close(false);
+  return this.socket.getDataStream()
+  // .subscribe(
+  //     (msg)=> {
+  //         console.log("next", msg.data);
+  //       //  ws.close(false);
+  //     },
+  //     (msg)=> {
+  //         console.log("error", msg);
+  //     },
+  //     ()=> {
+  //         console.log("complete");
+  //     }
+  // );
+// var x=0
+// this.socket.onMessage(
+//   (msg: MessageEvent)=> {
+//      let  result = JSON.parse(msg.data)
+//      console.log("re",result)
+//      x = result
 //   },
-//   (msg)=> {
-//       console.log("error", msg);
-//   },
-//   ()=> {
-//       console.log("complete");
-//   }
+//   // {autoApply: false}
 // );
-
-this.socket.onMessage(
-  (msg: MessageEvent)=> {
-    // console.log(msg)
-    let  result = JSON.parse(msg.data)
-      console.log("onMessage ", JSON.parse(msg.data));
-      if (result.is_logged_in){
-        console.log("okkk")
-        return true
-      }
-      else{console.log("noo");return false}
-
-  },
-  // {autoApply: false}
-);
-
+// if(x!=0){return x}
 
 }
 
