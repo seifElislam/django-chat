@@ -9,15 +9,12 @@
 
   </div>
   <div   class="col-md-12">
-
-    <!-- <ul class="list-group">
-      <li class="list-group-item justify-content-between group " *ngFor="let group of groups" [class.selected]="group === currentGroup" (click)="onSelect(group)">
-
-         {{group.name}}
-        <span class="badge badge-default badge-pill">{{group?.members.length}} </span>
-
+    <ul class="list-group">
+      <li class="list-group-item group " *ngFor="let user of users" [class.selected]="group === currentGroup" (click)="onSelect(user)" >
+        <span class="badge">{{user.status}}</span>
+        {{user.username}}
       </li>
-    </ul> -->
+    </ul>
   </div>
 </div>
 
@@ -31,6 +28,7 @@
       <div *ngIf="noGroups" class="col-md-12 alert alert-danger noGroup" role="alert">
         <strong>Oh snap!</strong> You have no groups yet
       </div>
+      <h4>chat with :{{currentFriend?.username}}</h4>
 
       <div class='msgBox' style="border-style: groove; min-height: 350px" class="col-md-12">
         msgs

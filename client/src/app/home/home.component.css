@@ -2,3 +2,28 @@
   border-style: groove !important;
   min-height: 350px !important;
 }
+
+.input-group{
+      margin-bottom: 1rem;
+}
+.groupInfo{
+    margin-bottom: .5rem;
+}
+.noGroup{
+    margin-top: 2rem;
+}
+  li.selected {
+    background-color: #CFD8DC !important;
+    color: white;
+  }
+
+
+  li.group li.selected:hover {
+    background-color: #BBD8DC !important;
+    color: black;
+  }
+  li.group:hover {
+    color: #607D8B !important;
+    background-color: #DDD !important;
+    left: .1em;
+  }
