@@ -12,3 +12,5 @@ instructions:
 7- Install packages via req. file: $ pip install requirements.txt
 8- run server : $ python manage.py runserver
 9- open your browser: http://localhost:4200/
+
+---------------------------------------------
