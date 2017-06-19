@@ -15,7 +15,7 @@ instructions:
 --------------------------------------------
 6- Create an isolate env: $ mkvirtualenv chat
 --------------------------------------------
-7- Install packages via req. file: $ pip install requirements.txt
+7- Install packages via req. file: $ pip install –r requirements.txt
 --------------------------------------------
 8- run server : $ python manage.py runserver
 --------------------------------------------
