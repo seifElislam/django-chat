@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AuthService } from './services/auth.service'
 import { NotifyService } from './services/notify.service'
+import { ChatHandlerService } from './services/chat-handler.service'
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -28,6 +29,7 @@ import { AppRoutingModule} from "./app-routing.module";
   providers: [
     AuthService,
     NotifyService,
+    ChatHandlerService,
   ],
   bootstrap: [AppComponent]
 })

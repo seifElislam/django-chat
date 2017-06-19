@@ -21,7 +21,7 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li *ngIf="_auth.isLoggedIn()" ><a (click)="_auth.logout()" href="#">Logout</a></li>
+        <li *ngIf="_auth.isLoggedIn()" ><a (click)="_auth.closeChannel()" href="#">Logout</a></li>
 
       </ul>
     </div><!-- /.navbar-collapse -->

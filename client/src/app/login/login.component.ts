@@ -14,7 +14,7 @@ returnUrl: string;
 model: any = {};
   constructor(
     private auth:AuthService,
-    private notify:NotifyService,
+    // private notify:NotifyService,
     private route: ActivatedRoute,
     private router: Router,
   ) {}

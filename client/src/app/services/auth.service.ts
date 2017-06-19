@@ -50,4 +50,7 @@ getCurrentUser(){
 isLoggedIn(){
   return (this.getCurrentUser()) ? true : false;
 }
+closeChannel(){
+  this.notify.closeChannel()
+}
 }
