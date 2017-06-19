@@ -22,9 +22,9 @@ startChannel(){
     }
 }
 
-sendMessage(){
+sendMessage(msg:any){
 
-  this.socket.send("some thing").subscribe(
+  this.socket.send(msg).subscribe(
         (msg)=> {
             console.log("next", msg.data);
         },
@@ -36,7 +36,7 @@ sendMessage(){
         }
     );
 
-  //   this.socket.send("this will be send and return Promise.", WebSocketSendMode.Promise).then(
+  //   this.socket.send(msg, WebSocketSendMode.Promise).then(
   //     (T) => {
   //         console.log("is send :",T);
   //     },
@@ -50,18 +50,19 @@ sendMessage(){
 }
 
 reciveMessage(){
-//   this.socket.getDataStream().subscribe(
-//   (msg)=> {
-//       console.log("next", msg.data);
-//       this.socket.close(false);
-//   },
-//   (msg)=> {
-//       console.log("error", msg);
-//   },
-//   ()=> {
-//       console.log("complete");
-//   }
-// );
+
+  this.socket.getDataStream().subscribe(
+  (msg)=> {
+      console.log("next", msg.data);
+      // this.socket.close(false);
+  },
+  (msg)=> {
+      console.log("error", msg);
+  },
+  ()=> {
+      console.log("complete");
+  }
+);
 
 // this.socket.onMessage(
 //   (msg: MessageEvent)=> {

@@ -17,7 +17,7 @@
       <ul class="nav navbar-nav">
         <li *ngIf="!_auth.isLoggedIn()" ><a [routerLink]="['/login']">Login <span class="sr-only">(current)</span></a></li>
         <li *ngIf="!_auth.isLoggedIn()" ><a [routerLink]="['/register']">Register</a></li>
-        <li  *ngIf="_auth.isLoggedIn()" ><a [routerLink]="['/']">Home</a></li>
+        <li  *ngIf="_auth.isLoggedIn()" ><a [routerLink]="['/home']">Home</a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">

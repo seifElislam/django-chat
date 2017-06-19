@@ -26,14 +26,12 @@ model: any = {};
   this.auth.login(this.model.username, this.model.password)
     .subscribe(
       data => {
-        // this.router.navigate([this.returnUrl]);
-        // let obj = {user_id : this.auth.getCurrentUser()._id};
-        // this.notify.sendLoginMessage(obj);
+        console.log("login done")
       },
       error => {
-
+        console.log("login error")
       });
-  console.log("login")
+
 }
 
 }

@@ -10,12 +10,16 @@ import { ChatHandlerService } from '../services/chat-handler.service'
 })
 export class HomeComponent implements OnInit {
 
-  constructor(
-    private notify:NotifyService,
-    private handler:ChatHandlerService
-  ) { }
+  constructor( private notify:NotifyService, private handler:ChatHandlerService)
+  {
+      this.notify.startChannel()
+      this.notify.sendMessage('hello world')
+      this.notify.reciveMessage()
+
+   }
 
   ngOnInit() {
+
     this.handler.get_users()
   }
 
