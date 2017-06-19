@@ -20,15 +20,7 @@ export class ChatHandlerService {
 
   get_users(){
     return this.http.get(AppSettings.API_ENDPOINT + '/api/users/',this.jwt() )
-        .map((response: Response) => {
-            // let user = response.json();
-            // if (user && user.token) {
-            //   localStorage.setItem('currentUser', JSON.stringify(user));
-            //   window.location.replace("/home");
-            //
-            // }
-            console.log(response.json())
-        });
+        .map(response => response.json());
   }
 
 }
