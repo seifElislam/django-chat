@@ -7,7 +7,7 @@ import { NotifyService } from './notify.service'
 @Injectable()
 export class AuthService {
 
-  constructor(private http: Http,private  notify: NotifyService) { }
+  constructor(private http: Http, private notify:NotifyService) { }
 
   login(username: string, password: string) {
     // let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -32,6 +32,7 @@ logout() {
       localStorage.removeItem('currentUser');
       window.location.replace('/login');
     }
+    this.notify.closeChannel()
 }
 
 create(user: any) {
@@ -50,7 +51,5 @@ getCurrentUser(){
 isLoggedIn(){
   return (this.getCurrentUser()) ? true : false;
 }
-closeChannel(){
-  this.notify.closeChannel()
-}
+
 }

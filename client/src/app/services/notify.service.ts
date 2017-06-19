@@ -10,69 +10,78 @@ export class NotifyService {
 
   private url = AppSettings.API_ENDPOINT + '/chat/';
  private socket;
-  constructor(private http: Http) {
-     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-     if(currentUser){
-       console.log(currentUser.id)
-        this.socket = new $WebSocket("ws://127.0.0.1:8000/chat/"+currentUser.id,null,null);
 
 
-    //   this.socket.send("some thing").subscribe(
-    //     data=>{console.log('data :',data)},error=>{console.log('error :',error)}
-    //     // (msg)=> {
-    //     //     console.log("next", msg.data);
-    //     // },
-    //     // // (msg)=> {
-    //     // //     console.log("error", msg);
-    //     // // },
-    //     // (msg)=> {
-    //     //     console.log(msg);
-    //     // }
-    // );
+  constructor(private http: Http) {}
 
-    this.socket.send("this will be send and return Promise.", WebSocketSendMode.Promise).then(
-      (T) => {
-          console.log("is send :",T);
-      },
-      (T) => {
-          console.log("not send:",T);
-      }
+startChannel(){
+  let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  if(currentUser){
+    console.log(currentUser.id)
+     this.socket = new $WebSocket("ws://127.0.0.1:8000/chat/"+currentUser.id,null,null);
+    }
+}
 
+sendMessage(){
 
-  );
-
-  this.socket.onMessage(
-    (msg: MessageEvent)=> {
-      console.log(msg)
-      let  result = JSON.parse(msg.data)
-        console.log("onMessage ", JSON.parse(msg.data));
-        if (result.is_logged_in){
-          console.log("okkk")
+  this.socket.send("some thing").subscribe(
+        (msg)=> {
+            console.log("next", msg.data);
+        },
+        (msg)=> {
+            console.log("error", msg);
+        },
+        ()=> {
+            console.log("complete");
         }
-        else{console.log("noo")}
+    );
 
-    },
-    // {autoApply: false}
-);
-  this.socket.getDataStream().subscribe(
-  (msg)=> {
-      console.log("next", msg.data);
-      this.socket.close(false);
-  },
-  (msg)=> {
-      console.log("error", msg);
-  },
-  ()=> {
-      console.log("complete");
-  }
-);
-
-
-   }
+  //   this.socket.send("this will be send and return Promise.", WebSocketSendMode.Promise).then(
+  //     (T) => {
+  //         console.log("is send :",T);
+  //     },
+  //     (T) => {
+  //         console.log("not send:",T);
+  //     }
+  //
+  //
+  // );
 
 }
+
+reciveMessage(){
+//   this.socket.getDataStream().subscribe(
+//   (msg)=> {
+//       console.log("next", msg.data);
+//       this.socket.close(false);
+//   },
+//   (msg)=> {
+//       console.log("error", msg);
+//   },
+//   ()=> {
+//       console.log("complete");
+//   }
+// );
+
+// this.socket.onMessage(
+//   (msg: MessageEvent)=> {
+//     console.log(msg)
+//     let  result = JSON.parse(msg.data)
+//       console.log("onMessage ", JSON.parse(msg.data));
+//       if (result.is_logged_in){
+//         console.log("okkk")
+//       }
+//       else{console.log("noo")}
+//
+//   },
+//   // {autoApply: false}
+// );
+
+
+}
+
 closeChannel(){
-  this.socket.close(true); 
+  this.socket.close(true);
   console.log("close channel")
 }
 }

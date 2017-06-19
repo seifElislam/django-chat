@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NotifyService } from '../services/notify.service';
+import { ChatHandlerService } from '../services/chat-handler.service'
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -9,10 +11,12 @@ import { NotifyService } from '../services/notify.service';
 export class HomeComponent implements OnInit {
 
   constructor(
-    private notify:NotifyService
+    private notify:NotifyService,
+    private handler:ChatHandlerService
   ) { }
 
   ngOnInit() {
+    this.handler.get_users()
   }
 
 }
