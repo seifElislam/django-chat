@@ -17,16 +17,19 @@ export class HomeComponent implements OnInit {
   currentUser:any
   constructor( private notify:NotifyService, private handler:ChatHandlerService)
   {
-      this.notify.startChannel()
-      this.notify.sendMessage('hello world')
-      this.notify.reciveMessage()
+      // this.notify.startChannel()
+      // this.notify.sendMessage('hello world')
+      // this.notify.reciveMessage()
       this.currentUser =  JSON.parse(localStorage.getItem('currentUser'));
       console.log("me :", this.currentUser.username)
 
    }
 
   ngOnInit() {
-
+    this.notify.startChannel()
+    this.notify.sendMessage('hello world')
+    this.notify.reciveMessage()
+    this.incomeMessages()
     this.handler.get_users().subscribe(data=>{
       this.list = data
       for (var i = 0; i < this.list.length; i++){
@@ -47,6 +50,10 @@ export class HomeComponent implements OnInit {
   onSelect(user: User): void {
     console.log("selection:",user)
     this.currentFriend = user
+  }
+
+  incomeMessages(){
+    if (this.notify.reciveMessage){console.log("i did it ")}
   }
 
 }

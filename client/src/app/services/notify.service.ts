@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable, Subject} from "rxjs";
-import {$WebSocket, WebSocketSendMode} from 'angular2-websocket/angular2-websocket';
+import {$WebSocket, WebSocketSendMode, WebSocketConfig} from 'angular2-websocket/angular2-websocket';
 import {URLSearchParams, Headers, RequestOptions, Http} from "@angular/http";
 
 import {AppSettings} from '../app.settings';
@@ -19,6 +19,7 @@ startChannel(){
   if(currentUser){
     console.log(currentUser.id)
      this.socket = new $WebSocket("ws://127.0.0.1:8000/chat/"+currentUser.id,null,null);
+
     }
 }
 
@@ -51,32 +52,35 @@ sendMessage(msg:any){
 
 reciveMessage(){
 
-  this.socket.getDataStream().subscribe(
-  (msg)=> {
-      console.log("next", msg.data);
-      // this.socket.close(false);
-  },
-  (msg)=> {
-      console.log("error", msg);
-  },
-  ()=> {
-      console.log("complete");
-  }
-);
-
-// this.socket.onMessage(
-//   (msg: MessageEvent)=> {
-//     console.log(msg)
+  // return  this.socket.getDataStream().map((msg: MessageEvent )=>{let result = msg.data;console.log("result:",result)});
+//   (msg)=> {
 //     let  result = JSON.parse(msg.data)
-//       console.log("onMessage ", JSON.parse(msg.data));
-//       if (result.is_logged_in){
-//         console.log("okkk")
-//       }
-//       else{console.log("noo")}
 //
+//       console.log(result);
+//       // this.socket.close(false);
 //   },
-//   // {autoApply: false}
+//   (msg)=> {
+//       console.log("error", msg);
+//   },
+//   ()=> {
+//       console.log("complete");
+//   }
 // );
+
+this.socket.onMessage(
+  (msg: MessageEvent)=> {
+    // console.log(msg)
+    let  result = JSON.parse(msg.data)
+      console.log("onMessage ", JSON.parse(msg.data));
+      if (result.is_logged_in){
+        console.log("okkk")
+        return true
+      }
+      else{console.log("noo");return false}
+
+  },
+  // {autoApply: false}
+);
 
 
 }

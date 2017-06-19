@@ -28,7 +28,7 @@
       <div *ngIf="noGroups" class="col-md-12 alert alert-danger noGroup" role="alert">
         <strong>Oh snap!</strong> You have no groups yet
       </div>
-      <h4>chat with :{{currentFriend?.username}}</h4>
+      <h3>{{currentUser.username}} <label>chat with :</label> {{currentFriend?.username}}</h3>
 
       <div class='msgBox' style="border-style: groove; min-height: 350px" class="col-md-12">
         msgs
