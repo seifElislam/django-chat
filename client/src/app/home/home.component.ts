@@ -30,24 +30,8 @@ export class HomeComponent implements OnInit {
     this.notify.startChannel()
     // this.notify.sendMessage('hello world')
     // this.notify.reciveMessage()
+    this.get_allusers()
 
-    this.handler.get_users().subscribe(data=>{
-      this.list = data
-      for (var i = 0; i < this.list.length; i++){
-        // console.log("i :",this.list[i].fields['username'])
-        let user={id:0,username:"",status:"offline", login:false}
-        if(this.currentUser.id != this.list[i].pk){
-         user.id = this.list[i].pk;
-         user.username = this.list[i].fields['username'];
-         this.users.push(user)
-       }
-      }
-
-       console.log('my list:',this.users)
-       this.incomeMessages()
-    },error=>{
-      console.log('error:',error)
-    })
   }
 
   onSelect(user: User): void {
@@ -62,6 +46,7 @@ export class HomeComponent implements OnInit {
             var backMsg = JSON.parse(msg.data)
             console.log("back msg:",backMsg)
             if(backMsg.type == "new login"){
+              this.get_allusers()
                console.log("some one come",backMsg.user)
                for(var x = 0; x < backMsg.user.length; x++){
                  console.log("x :",x)
@@ -104,6 +89,7 @@ export class HomeComponent implements OnInit {
 
   }
   ngDoCheck(){
+    // this.get_allusers()
     console.log("new check")
     this.incomeMessages()
     if(this.users.length>0){
@@ -121,6 +107,34 @@ export class HomeComponent implements OnInit {
         }
       }
     }
+  }
+  get_allusers(){
+    let current = this.users.length
+    console.log("now users are:", current)
+    this.list=[]
+
+    this.handler.get_users().subscribe(data=>{
+      this.list = data
+      if(this.list.length>current){
+        this.users=[]
+        console.log("new users")
+        for (var i = 0; i < this.list.length; i++){
+          // console.log("i :",this.list[i].fields['username'])
+          let user={id:0,username:"",status:"offline", login:false}
+          if(this.currentUser.id != this.list[i].pk){
+           user.id = this.list[i].pk;
+           user.username = this.list[i].fields['username'];
+           this.users.push(user)
+         }
+        }
+      }
+
+
+       console.log('my list:',this.users)
+       this.incomeMessages()
+    },error=>{
+      console.log('error:',error)
+    })
   }
 
 }
