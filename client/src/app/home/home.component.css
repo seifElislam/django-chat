@@ -1,6 +1,11 @@
 .msgBox{
   border-style: groove !important;
-  min-height: 350px !important;
+  /*min-height: 300px !important;*/
+  /*max-height: 300px !important;*/
+  background-color:white;
+  /*overflow-y: auto;*/
+  height: 300px;
+  overflow-y: scroll;
 }
 
 .input-group{

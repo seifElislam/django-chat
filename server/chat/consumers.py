@@ -54,7 +54,10 @@ def ws_disconnect(message):
 def ws_receive(message):
     text = message.content.get('text')
     if text:
-        print message.content
+        print text
+        print text.split('/')[1]
+        to = text.split('/')[2]
         message.reply_channel.send({"text": "You said: {}".format(text)})
+        Group("user-%s" % to).send({"text": "msg to: {}".format(text)})
 
 

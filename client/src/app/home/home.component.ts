@@ -10,10 +10,11 @@ import {User} from '../models/User';
 })
 export class HomeComponent implements OnInit {
 
+  msgs:any[]=[]
   list:any[]
   user={id:0,username:"",status:0}
   users:any[]=[]
-  currentFriend:any
+  currentFriend:any=false
   currentUser:any
   online:any[]=[]
   constructor( private notify:NotifyService, private handler:ChatHandlerService)
@@ -135,6 +136,12 @@ export class HomeComponent implements OnInit {
     },error=>{
       console.log('error:',error)
     })
+  }
+
+  send(msg: HTMLInputElement) {
+    console.log(msg.value)
+    this.notify.sendMessage(this.currentUser.id+"/"+msg.value+"/"+this.currentFriend.id)
+    msg.value=null;
   }
 
 }

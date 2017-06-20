@@ -30,13 +30,17 @@
       </div>
       <h3>{{currentUser.username}} <label>chat with :</label> {{currentFriend?.username}}</h3>
 
-      <div class='msgBox' style="border-style: groove; min-height: 350px" class="col-md-12">
-        msgs
+      <div class="col-md-12 msgBox ">
+
+      
+
       </div>
-      <div class="col-md-12">
-        inout
+      <div class="col-md-12 input-group">
 
-
+          <input type="text" class="form-control" #msg (keydown)="onKey()" [disabled]="!currentFriend">
+          <span class="input-group-btn">
+          <button [disabled]="!currentFriend" class="btn btn-secondary" (click)="send(msg)"><i class="fa  fa-plus-square"></i>Send</button>
+        </span>
 
       </div>
     </div>
