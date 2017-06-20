@@ -8,8 +8,6 @@ offline_users = []
 
 
 def ws_connect(message):
-
-
     print message.content
     print message.content.get('path').split('/')[2]
     user_id = message.content.get('path').split('/')[2]
@@ -19,29 +17,23 @@ def ws_connect(message):
 
     Group('users').send({
         'text': json.dumps({
-         'type': 'new login',
-         'user': online_users,
-         'is_logged_in': True
-            })
-        })
-    message.reply_channel.send({'text': json.dumps({
-            'type':'new login',
+            'type': 'new login',
             'user': online_users,
             'is_logged_in': True
-        })})
-
-
-
-
-
-
+        })
+    })
+    message.reply_channel.send({'text': json.dumps({
+        'type': 'new login',
+        'user': online_users,
+        'is_logged_in': True
+    })})
 
 
 def ws_disconnect(message):
-    out_id =  message.content.get('path').split('/')[2]
+    out_id = message.content.get('path').split('/')[2]
     online_users.remove(out_id)
     offline_users.append(out_id)
-    print "disconect"
+    print "disconnect"
     Group('users').send({
         'text': json.dumps({
             'type': 'logout',
@@ -56,11 +48,11 @@ def ws_receive(message):
     text = message.content.get('text')
     if text:
         print text
-        sender =  text.split('/')[0]
+        sender = text.split('/')[0]
         receiver = text.split('/')[2]
         body = text.split('/')[1]
-        message.reply_channel.send({"text": json.dumps({'type': "msg", 'content':text})})
-        Group("user-%s" % receiver).send({"text": json.dumps({'type': "msg", 'content':text})})
+        message.reply_channel.send({"text": json.dumps({'type': "msg", 'content': text})})
+        Group("user-%s" % receiver).send({"text": json.dumps({'type': "msg", 'content': text})})
         try:
             msg = Message()
             msg.content = body
@@ -72,4 +64,3 @@ def ws_receive(message):
 
         except Exception as e:
             print e
-
