@@ -18,9 +18,7 @@ to install => $sudo apt-get install python-pip
 ```
 node 
 ```
-to install => $curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-
-              $sudo apt-get install -y nodejs
+to install => $curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -; $sudo apt-get install -y nodejs
 
 ```
 virtualenv 
