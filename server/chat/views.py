@@ -6,8 +6,8 @@ from django.contrib.auth.models import User
 import ast
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
-from django.shortcuts import render
-
+from .models import Message
+from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
 from datetime import timedelta, date
 from django.core import serializers
@@ -15,11 +15,12 @@ from django.core import serializers
 auth = JWTAuthentication()
 
 
-def get_messages(request):
+def get_messages(request, user_id):
     if auth.authenticate(request):
-        return JsonResponse({'msg': 'ok'}, status=200)
+        msgs = Message.filter(Q(msg_from=user_id) | Q(msg_to=user_id))
+        return HttpResponse(serializers.serialize('json', msgs), status=200)
     else:
-        return JsonResponse({'msg': 'no'}, status=403)
+        return JsonResponse({'msg': 'Unauthorized'}, status=401)
 
 
 def get_users(request):
@@ -30,7 +31,7 @@ def get_users(request):
         return HttpResponse(serializers.serialize('json', users, fields=('username')), status=200)
         # return JsonResponse({'msg': 'ok'}, status=200)
     else:
-        return JsonResponse({'msg': 'no'}, status=403)
+        return JsonResponse({'msg': 'Unauthorized'}, status=401)
 
 
 @csrf_exempt

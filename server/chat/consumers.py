@@ -1,11 +1,12 @@
 import json
 from channels import Group
-from channels.auth import channel_session_user, channel_session_user_from_http, channel_session
-from channels.generic.websockets import JsonWebsocketConsumer
-import re
+from .models import Message
+from datetime import datetime
 
 online_users = []
 offline_users = []
+
+
 def ws_connect(message):
 
 
@@ -55,9 +56,20 @@ def ws_receive(message):
     text = message.content.get('text')
     if text:
         print text
-        print text.split('/')[1]
-        to = text.split('/')[2]
+        sender =  text.split('/')[0]
+        receiver = text.split('/')[2]
+        body = text.split('/')[1]
         message.reply_channel.send({"text": json.dumps({'type': "msg", 'content':text})})
-        Group("user-%s" % to).send({"text": json.dumps({'type': "msg", 'content':text})})
+        Group("user-%s" % receiver).send({"text": json.dumps({'type': "msg", 'content':text})})
+        try:
+            msg = Message()
+            msg.content = body
+            msg.msg_from = sender
+            msg.msg_to = receiver
+            msg.time = datetime.now()
+            msg.save()
+            print "message store"
 
+        except Exception as e:
+            print e
 

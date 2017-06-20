@@ -8,5 +8,5 @@ from django.db import models
 class Message(models.Model):
     content = models.CharField(max_length=100)
     time = models.DateTimeField()
-    msg_from = models.ForeignKey(User, related_name='sender')
-    msg_to = models.ForeignKey(User, related_name='receiver')
+    msg_from = models.IntegerField
+    msg_to = models.IntegerField
