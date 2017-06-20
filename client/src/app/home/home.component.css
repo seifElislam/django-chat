@@ -35,3 +35,10 @@
   .my-class{
     color:green;
   }
+  .me{
+    background-color: cornflowerblue;
+    float: right;
+  }
+  .other{
+    background-color: lightgray;
+  }

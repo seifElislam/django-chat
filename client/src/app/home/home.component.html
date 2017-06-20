@@ -30,14 +30,18 @@
       </div>
       <h3>{{currentUser.username}} <label>chat with :</label> {{currentFriend?.username}}</h3>
 
-      <div class="col-md-12 msgBox ">
+      <div   class="col-md-12 msgBox ">
+        <div *ngFor="let msg of msgs">
+          <!-- <p *ngIf="msg.from == currentUser.id" class="me"> me : {{msg.content}}</p>
+          <p *ngIf="msg.from == currentFriend.id" class="other"> {{currentFriend.username}} : {{msg.content}}</p> -->
+          <label *ngIf="msg.from == currentUser.id" class="me">me : {{msg.content}}</label><br *ngIf="msg.from == currentUser.id"/>
+          <label *ngIf="msg.from == currentFriend.id" class="other"> {{currentFriend.username}} : {{msg.content}}</label><br *ngIf="msg.from == currentFriend.id"/>
 
-      
-
-      </div>
+          </div>
+        </div>
       <div class="col-md-12 input-group">
 
-          <input type="text" class="form-control" #msg (keydown)="onKey()" [disabled]="!currentFriend">
+          <input type="text" class="form-control" #msg  [disabled]="!currentFriend">
           <span class="input-group-btn">
           <button [disabled]="!currentFriend" class="btn btn-secondary" (click)="send(msg)"><i class="fa  fa-plus-square"></i>Send</button>
         </span>

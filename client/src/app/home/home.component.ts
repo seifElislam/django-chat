@@ -10,6 +10,7 @@ import {User} from '../models/User';
 })
 export class HomeComponent implements OnInit {
 
+  inbox:any[]=[]
   msgs:any[]=[]
   list:any[]
   user={id:0,username:"",status:0}
@@ -32,18 +33,21 @@ export class HomeComponent implements OnInit {
     // this.notify.sendMessage('hello world')
     // this.notify.reciveMessage()
     this.get_allusers()
+    this.incomeMessages()
 
   }
 
   onSelect(user: User): void {
+
     console.log("selection:",user)
     this.currentFriend = user
+    this.chatHundler()
   }
 
   incomeMessages(){
 
     this.notify.reciveMessage().subscribe((msg)=> {
-            console.log("nextttt", msg.data);
+            console.log("new msg form server", msg.data);
             var backMsg = JSON.parse(msg.data)
             console.log("back msg:",backMsg)
             if(backMsg.type == "new login"){
@@ -79,6 +83,15 @@ export class HomeComponent implements OnInit {
                 }
               }
             }
+            if(backMsg.type == "msg"){
+              console.log("new msg need to be handled")
+              let message = backMsg.content.split("/")
+              console.log("after processing",message)
+              let inbox = {"from":message[0],"to":message[2],"content":message[1]}
+              this.inbox.push(inbox)
+              console.log("my inbox , ",this.inbox)
+              this.chatHundler()
+            }
         },
         (msg)=> {
             console.log("errorss", msg);
@@ -92,7 +105,7 @@ export class HomeComponent implements OnInit {
   ngDoCheck(){
     // this.get_allusers()
     console.log("new check")
-    this.incomeMessages()
+    // this.incomeMessages()
     if(this.users.length>0){
       console.log("now if full")
       // console.log("length :",this.online.length)
@@ -132,16 +145,29 @@ export class HomeComponent implements OnInit {
 
 
        console.log('my list:',this.users)
-       this.incomeMessages()
+      //  this.incomeMessages()
     },error=>{
       console.log('error:',error)
     })
   }
 
   send(msg: HTMLInputElement) {
+
     console.log(msg.value)
     this.notify.sendMessage(this.currentUser.id+"/"+msg.value+"/"+this.currentFriend.id)
     msg.value=null;
+
+  }
+  chatHundler(){
+    this.msgs=[]
+
+    for(let i=0;i<this.inbox.length;i++){
+      console.log("firend :",this.currentFriend.id, "msg from :",this.inbox[i].from, "msg to :",this.inbox[i].to)
+      if(this.currentFriend.id == this.inbox[i].from ||this.currentFriend.id == this.inbox[i].to ){
+        this.msgs.push(this.inbox[i])
+      }
+    }
+  console.log("chat :",this.msgs)
   }
 
 }
