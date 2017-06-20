@@ -1,5 +1,6 @@
-
+<label for="">welcome: {{currentUser.username}}</label>
 <div class="row jumbotron">
+  <!-- <h4 style="text-align: center;"> Welcome : {{currentUser.username}}</h4> -->
   <div class="col-md-3">
 
 <div class="row">
@@ -25,13 +26,13 @@
         <!-- <h3 style="display: inline;" class=""><span class="badge badge-default">{{currentGroup?.name}} group</span></h3> -->
 
       </div>
-      <div *ngIf="noGroups" class="col-md-12 alert alert-danger noGroup" role="alert">
+      <!-- <div *ngIf="noGroups" class="col-md-12 alert alert-danger noGroup" role="alert">
         <strong>Oh snap!</strong> You have no groups yet
-      </div>
-      <h3>{{currentUser.username}} <label>chat with :</label> {{currentFriend?.username}}</h3>
+      </div> -->
+      <p>you now chat with : {{currentFriend?.username}}</p>
 
       <div   class="col-md-12 msgBox ">
-        <div *ngFor="let msg of msgs">
+        <div *ngFor="let msg of msgs" style="padding: 1%;">
           <!-- <p *ngIf="msg.from == currentUser.id" class="me"> me : {{msg.content}}</p>
           <p *ngIf="msg.from == currentFriend.id" class="other"> {{currentFriend.username}} : {{msg.content}}</p> -->
           <label *ngIf="msg.from == currentUser.id" class="me">me : {{msg.content}}</label><br *ngIf="msg.from == currentUser.id"/>

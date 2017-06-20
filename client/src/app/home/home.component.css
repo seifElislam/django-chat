@@ -9,7 +9,7 @@
 }
 
 .input-group{
-      margin-bottom: 1rem;
+      padding: 2%;
 }
 .groupInfo{
     margin-bottom: .5rem;
@@ -33,11 +33,12 @@
     left: .1em;
   }
   .my-class{
-    color:green;
+    color:greenyellow;
   }
   .me{
     background-color: cornflowerblue;
-    float: right;
+    /*float: right;*/
+    color: white;
   }
   .other{
     background-color: lightgray;

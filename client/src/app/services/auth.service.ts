@@ -7,6 +7,7 @@ import { NotifyService } from './notify.service'
 @Injectable()
 export class AuthService {
 
+
   constructor(private http: Http, private notify:NotifyService) { }
 
   login(username: string, password: string) {
@@ -16,6 +17,7 @@ export class AuthService {
         .map((response: Response) => {
             let user = response.json();
             if (user && user.token) {
+            
               localStorage.setItem('currentUser', JSON.stringify(user));
               window.location.replace("/home");
 

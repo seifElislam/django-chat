@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
   inbox:any[]=[]
   msgs:any[]=[]
   list:any[]
+  msg_list:any[]
   user={id:0,username:"",status:0}
   users:any[]=[]
   currentFriend:any=false
@@ -33,6 +34,7 @@ export class HomeComponent implements OnInit {
     // this.notify.sendMessage('hello world')
     // this.notify.reciveMessage()
     this.get_allusers()
+    this.get_msgs()
     this.incomeMessages()
 
   }
@@ -87,7 +89,7 @@ export class HomeComponent implements OnInit {
               console.log("new msg need to be handled")
               let message = backMsg.content.split("/")
               console.log("after processing",message)
-              let inbox = {"from":message[0],"to":message[2],"content":message[1]}
+              let inbox = {from:message[0],to:message[2],content:message[1]}
               this.inbox.push(inbox)
               console.log("my inbox , ",this.inbox)
               this.chatHundler()
@@ -132,7 +134,7 @@ export class HomeComponent implements OnInit {
       if(this.list.length>current){
         this.users=[]
         console.log("new users")
-        for (var i = 0; i < this.list.length; i++){
+        for (let i = 0; i < this.list.length; i++){
           // console.log("i :",this.list[i].fields['username'])
           let user={id:0,username:"",status:"offline", login:false}
           if(this.currentUser.id != this.list[i].pk){
@@ -148,6 +150,28 @@ export class HomeComponent implements OnInit {
       //  this.incomeMessages()
     },error=>{
       console.log('error:',error)
+    })
+  }
+
+  get_msgs(){
+    let current = this.inbox.length
+    console.log("now inbox = ", current)
+    this.msg_list=[]
+    this.handler.get_messages().subscribe(data=>{
+      console.log("server msgs :", data)
+      this.msg_list = data
+      if(this.msg_list.length>current){
+        this.inbox = []
+        for(let i=0; i<this.msg_list.length;i++){
+          let msg = {from:0,to:0,content:''}
+          msg.from = this.msg_list[i].fields['msg_from'];
+          msg.to = this.msg_list[i].fields['msg_to'];
+          msg.content = this.msg_list[i].fields['content'];
+          this.inbox.push(msg)
+        }
+      }
+    },error=>{
+      console.log("server msgs errors :", error)
     })
   }
 
