@@ -35,7 +35,7 @@ to install => $pip install virtualenv
 
 4- Chane directory to server and create new virtualenv :  $ virtualenv myEnv
 
-5- Activate the it => $source myEnv/bin/activate
+5- Activate it => $source myEnv/bin/activate
 
 6- Install packages via req. file: $ pip install –r requirements.txt
 
